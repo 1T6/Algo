@@ -1,14 +1,14 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
+void print(vector<int>);
+
 int main()
 {
-    int a=5, b =5;
-
-    a = b= 1;
-
-    cout<<a<<b<<endl;
+    double a = INF;
 
     return 0;
 }
+
