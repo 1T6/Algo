@@ -1,14 +1,23 @@
 #include <iostream>
 #include <vector>
+#include <cstring>
+
 
 using namespace std;
 
-void print(vector<int>);
+
 
 int main()
 {
-    double a = INF;
+    int a[2][2]={{-1}};
+    fill(a[0], a[0]+2*2, -1);
+    
 
-    return 0;
+    for(int i=0; i<2; i++){
+        for(int j=0; j<2; j++){
+            cout<<a[i][j];
+        }
+        cout<<endl;
+    }
 }
 
