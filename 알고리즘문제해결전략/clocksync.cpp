@@ -3,19 +3,16 @@
 
 using namespace std;
 
-void setSwitch();
 
-int map[9][5] =-1;
-
-int main()
-{
-    int numCases;
-    cin>>numCases;
-
-    for(int i=0; i<numCases; i++){
-
-    }
-
-
-    return 0;
-}
+int coutNum(int clocks[]);
+void mapping();
+int switches[9][5] ={
+    {0, 1, 2},
+    {3,7,9, 11},
+    {4,10,14,15},
+    {0,4,5,6,7},
+    {6,7,8,10,12},
+    {0,2,14,15},
+    {3,14,15},
+    {1,2,3,4,5},
+    {3,4,5,9,13}};
