@@ -12,11 +12,6 @@ bool map[9][16];
 
 int main()
 {
-    for(int i=0; i<9; i++){
-        for(int j=0; j<16; j++){
-
-        }
-
-    }
+    cout<<6%12<<endl;
     return 0;
 }

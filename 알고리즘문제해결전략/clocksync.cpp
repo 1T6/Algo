@@ -4,7 +4,7 @@
 using namespace std;
 
 
-int coutNum(int clocks[]);
+int countNum(int clocks[], int clicked[]);
 void mapping();
 int switches[9][5] ={
     {0, 1, 2},
@@ -18,6 +18,7 @@ int switches[9][5] ={
     {3,4,5,9,13}};
 
 bool map[9][16];
+int clicked[9];
 
 int main()
 {  
@@ -33,11 +34,11 @@ int main()
             cin>>clocks[j];
         }
 
-        results.push_back(countNum);
+        results.push_back(countNum(clocks, clicked));
     }
 
-    for(int i=0; i<16; i++){
-        cout<<results[i];
+    for(int i=0; i<numCases; i++){
+        cout<<results[i]<<endl;
     }
 
 
@@ -58,20 +59,52 @@ void mapping()
             }
         }
     }
-
-
 }
 
-int countNum(int[] clocks)
-{
+int countNum(int clocks[], int clicked[])
+{   
+    //BASE CASE
+    //왜 답이 없게 되는지도 알려줘야지 아니면 segmentation fault가 나오게 된다.
+    //이것은 같은 스위치를 4번 누르게 되면 정답이 없게 하는 insight로 접근하면 된다.
     int target=0;
+    bool finished =true;
     for(int i=0; i<16; i++){
         if(clocks[i]%12 != 0){
             target = i;
+            finished= false;
+            break;
+        }
+    }
+    if(finished) return 1;
+
+    for(int i=0; i<9; i++){
+        if(clicked[i]>=4){
+            return 0;
         }
     }
 
-    int ret;
+    int ret=0;
 
+    for(int i=0; i<9; i++){
+        
+        if(map[i][target]){
+            for(int j=0; j<16; j++){
+                if(map[i][j]){
+                    clocks[j]+=3;
+                    clicked[i]++;
+                }
+            }
 
+            ret +=countNum(clocks, clicked);
+
+            for(int j=0; j<16; j++){
+                if(map[i][j]){
+                    clocks[j]-=3;
+                    clicked[i]--;
+                }
+            }
+        }
+    }
+
+    return ret;
 }
