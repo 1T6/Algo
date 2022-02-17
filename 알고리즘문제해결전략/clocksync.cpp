@@ -4,7 +4,7 @@
 using namespace std;
 
 
-int countNum(int clocks[], int clicked[]);
+int countNum(int clocks[], int clicked[], int start);
 void mapping();
 int switches[9][5] ={
     {0, 1, 2},
@@ -34,7 +34,7 @@ int main()
             cin>>clocks[j];
         }
 
-        results.push_back(countNum(clocks, clicked));
+        results.push_back(countNum(clocks, clicked, 0));
     }
 
     for(int i=0; i<numCases; i++){
@@ -61,11 +61,12 @@ void mapping()
     }
 }
 
-int countNum(int clocks[], int clicked[])
+int countNum(int clocks[], int clicked[], int start)
 {   
     //BASE CASE
     //왜 답이 없게 되는지도 알려줘야지 아니면 segmentation fault가 나오게 된다.
-    //이것은 같은 스위치를 4번 누르게 되면 정답이 없게 하는 insight로 접근하면 된다.
+    //이것은 같은 스위치를 4번 누르게 되면 정답이 없게 하는 insight로 접근하면 된다?
+    //근데 이렇게 짜면 게속해서 같은 스위치가 자기 혼자 4번 눌리게 되고 끝나게 될 수 있다?
     int target=0;
     bool finished =true;
     for(int i=0; i<16; i++){
@@ -85,22 +86,24 @@ int countNum(int clocks[], int clicked[])
 
     int ret=0;
 
-    for(int i=0; i<9; i++){
+    for(int i=start; i<9; i++){
         
+        //스위치 선택
         if(map[i][target]){
+            clicked[i]++;
+            //스위치에 있는 요소들 반영
             for(int j=0; j<16; j++){
                 if(map[i][j]){
                     clocks[j]+=3;
-                    clicked[i]++;
                 }
             }
 
-            ret +=countNum(clocks, clicked);
-
+            ret +=countNum(clocks, clicked, i);
+            
+            clicked[i]--;
             for(int j=0; j<16; j++){
                 if(map[i][j]){
                     clocks[j]-=3;
-                    clicked[i]--;
                 }
             }
         }
