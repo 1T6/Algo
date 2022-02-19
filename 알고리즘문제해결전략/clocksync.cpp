@@ -63,3 +63,50 @@ void mapping()
         }
     }
 }
+
+int countNum(int clocks[])
+{
+
+    for(int i=0; i<10; i++){
+        cout<<clicked[i]<<" ";
+    }
+    cout<<endl;
+    //BASE CASE
+    bool finished =true;
+    for(int i=0; i<16; i++){
+        if(clocks[i]%12 !=0){
+            finished = false;
+        }
+    }
+    if(finished) return 1;
+    for(int i=0; i<10; i++){
+        if(clicked[i]>=4){
+            return 0;
+        }
+    }
+
+    int ret=0;
+
+    for(int i=0; i<10; i++){
+
+
+        clicked[i]++;
+        for(int j=0; j<16; j++){
+            if(map[i][j]){
+                clocks[j]+=3;
+            }
+        }
+
+        ret += countNum(clocks);
+
+        for(int j=0; j<16; j++){
+            if(map[i][j]){
+                clocks[j]-=3;
+            }
+        }
+
+        clicked[i]--;
+    }
+    return ret;
+
+}
