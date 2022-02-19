@@ -12,6 +12,6 @@ bool map[9][16];
 
 int main()
 {
-    cout<<6%12<<endl;
+    cout<<24%12<<endl;
     return 0;
 }
