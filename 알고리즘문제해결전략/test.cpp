@@ -1,17 +1,26 @@
 #include <iostream>
-#include <vector>
-#include <cstring>
-
 
 using namespace std;
 
 
-void mapping();
-bool map[9][16];
-
-
+void print(const int& a);
+void print1(const int a);
 int main()
-{
-    cout<<24%12<<endl;
+{  
+    int a=10;
+    print(a);
+    print1(a);
     return 0;
+}
+void print(const int& a)
+{   
+    
+    cout<<a<<endl;
+    cout<<&a<<endl;
+}
+void print1(const int a)
+{   
+    
+    cout<<a<<endl;
+    cout<<&a<<endl;
 }
