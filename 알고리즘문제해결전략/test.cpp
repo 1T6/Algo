@@ -6,10 +6,10 @@ using namespace std;
 
 int main()
 {
-    char a=  'a';
+    
+    string a = "asdf";
 
-    string s(1,a);
-    cout<<a<<endl;
+    cout<< a.length()<<endl;
 
 
 
