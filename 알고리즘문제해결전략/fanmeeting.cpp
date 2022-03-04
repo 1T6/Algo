@@ -101,4 +101,3 @@ vector<int> multiply(const vector<int>& a, const vector<int>& b)
         }
     }
     return c;
-}
