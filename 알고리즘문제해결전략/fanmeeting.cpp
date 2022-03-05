@@ -37,10 +37,8 @@ int countHug(const string& mem, const string& fan)
     int memN=mem.size(), fanN=fan.size();
     vector<int> M, F;
     for(int i=0; i<memN; i++) M.push_back(mem[i]=='M');
-    for(int i=0; i<memN; i++) F.push_back(fan[i]=='M');
+    for(int i=fanN-1; i>=0; i--) F.push_back(fan[i]=='M');
     vector<int> mul = karatsuba(M,F);
-    
-    cout<<endl;
     int ret=0;
     for(int i=memN-1; i<fanN; i++) if(mul[i]==0)ret++;
     return ret;
@@ -50,7 +48,7 @@ vector<int> karatsuba(const vector<int>& a, const vector<int>& b)
     int an = a.size(), bn = b.size();
     if(an<bn) return karatsuba(b,a);
     if(an == 0 || bn == 0) return vector<int>();
-    if(an <=50) return multiply(a,b);
+    if(an <=100) return multiply(a,b);
     int half = an/2;
 
     vector<int> a0(a.begin(), a.begin()+half);
@@ -101,4 +99,4 @@ vector<int> multiply(const vector<int>& a, const vector<int>& b)
         }
     }
     return c;
-}
+}   
