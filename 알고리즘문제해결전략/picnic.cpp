@@ -71,7 +71,6 @@ int countPairs(bool taken[10])
         if(areFriends[first][i] && !taken[i]){
             taken[first] = true;
             taken[i] = true;
-            cout<<first<<i<<endl;
             ret += countPairs(taken);
             taken[first] = false;
             taken[i] =false;        
