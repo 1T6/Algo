@@ -1,112 +1,106 @@
 #include <iostream>
-#include <string>
 #include <vector>
 
 using namespace std;
 
-int H;
-int W;
-int coverType[4][3][2] ={
-    {{0,0},{1,0},{0,1}},
-    {{0,0},{1,0},{1,1}},
-    {{0,0},{0,1},{1,1}},
-    {{0,0},{1,0},{1,-1}}
-    };
-
-bool cover(vector<vector<int>>& map, int y, int x,int type, int delta);
-int countCovers(vector<vector<int>>& map);
+void init();
+int count();
+bool cover(int y, int x, int type, int delta);
+bool inRange(int y, int x);
+int H, W;
+int board[20][20];
+int dir[4][3][2] = {
+    {{0,0}, {1,0}, {0,1}},
+    {{0,0}, {0,1}, {1,1}},
+    {{0,0}, {1,0}, {1,1}},
+    {{0,0}, {1,0}, {1,-1}},
+    
+};
 
 int main()
 {
+
+    init();
+
     int numCases;
+    cin>>numCases;
     vector<int> results;
-    
-    cin>> numCases;
 
     for(int i=0; i<numCases; i++){
-        vector<vector<int>> map;
-
         cin>>H>>W;
-        int whiteCount=0;
-
+        
         for(int j=0; j<H; j++){
-            string tmp;
-            cin>>tmp;
-            vector<int> line;
-
-            for(int k=0;k<W;k++){
-                //BLACK
-                if(tmp[k]=='#'){
-                    line.push_back(1);
-                }
-                //WHITE
-                else if(tmp[k] == '.'){
-                    line.push_back(0);
-                    whiteCount++;
-                }
+            for(int k=0; k<W; k++){
+                char tmp;
+                cin>>tmp;
+                if(tmp=='#') board[j][k] = 1;
+                else board[j][k] =0;
             }
-            map.push_back(line);
         }
-        if(whiteCount%3!=0){
-            results.push_back(0);
-        }
-        else{
-            results.push_back(countCovers(map));
-        }
+        
+        results.push_back(count());
     }
 
     for(int i=0; i<numCases; i++){
         cout<<results[i]<<endl;
     }
+
     return 0;
 }
 
-int countCovers(vector<vector<int>>& map)
-{   
-    int y = 0;
-    int x = 0;
-    bool finished=true;
-    //가장 왼쪽 위에 빈칸 찾기.
+void init()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+
+int count()
+{
+    bool finished = true;
+
+    int x=0, y =0;
+
     for(int i=0; i<H; i++){
         for(int j=0; j<W; j++){
-            if(map[i][j]==0){
+            if(!board[i][j]){
                 y=i;
                 x=j;
                 finished = false;
                 break;
             }
         }
-        if(finished==false) break;
+        if(!finished) break;
     }
 
     //BASE CASE
     if(finished) return 1;
 
-    int ret = 0;
+    int ret= 0;
     for(int i=0; i<4; i++){
-        //COVER
-        if(cover(map, y, x, i, 1)) ret+=countCovers(map);
-        //REMOVE COVER
-        cover(map,y,x, i,-1);
+        if(cover(y, x, i, 1)) 
+            ret += count();
+        cover(y, x, i, -1);
     }
 
     return ret;
 }
+bool cover(int y, int x, int type, int delta)
+{   
+    bool ok = true;
 
-bool cover(vector<vector<int>>& map, int y, int x,int type, int delta)
-{
-    bool ret = true;
     for(int i=0; i<3; i++){
-        int ny = y + coverType[type][i][0];
-        int nx = x + coverType[type][i][1];
-        //OUT OF BOUND
-        if(ny<0 || ny>=H ||nx<0 || nx>=W){
-            ret = false;
-        }
-        //ALREADY COVERED
-        else if((map[ny][nx] += delta) >1){
-            ret = false;
+        int n_y = y+dir[type][i][0];
+        int n_x = x+dir[type][i][1];
+        if(!inRange(n_y, n_x)) ok = false;
+        else{
+            if((board[n_y][n_x]+=delta)>1) ok = false;
         }
     }
-    return ret;
+    return ok;
+
+}
+bool inRange(int y, int x)
+{
+    return (y>=0 && x>=0 && y<H && x<W);
 }
