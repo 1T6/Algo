@@ -1,22 +1,29 @@
 #include <iostream>
-#include <string>
 #include <vector>
+
 
 using namespace std;
 
-string flip(string::iterator& it);
+
+int get_size(vector<int>& fence);
+
+int N;
 
 int main()
 {
     int numCases;
-    cin>> numCases;
-    vector<string> results;
-    for(int i=0; i<numCases; i++){
-        string str;
-        cin>>str;
-        string::iterator it = str.begin();
+    cin>>numCases;
+    vector<int> results;
 
-        results.push_back(flip(it));
+    for(int i=0; i<numCases; i++){
+        cin>>N;
+        vector<int> fence;
+        for(int j=0; j<N; j++){
+            int tmp;
+            cin>>tmp;
+            fence.push_back(tmp);
+        }
+        results.push_back(get_size(fence));
     }
 
     for(int i=0; i<numCases; i++){
@@ -26,17 +33,7 @@ int main()
     return 0;
 }
 
-string flip(string::iterator& it)
+int get_size(vector<int>& fence)
 {
-    char target = *it;
-    it++;
-    if(target == 'w' || target == 'b') 
-    return string(1, target);
-
-    string upperLeft = flip(it);
-    string upperRight = flip(it);
-    string lowerLeft = flip(it);
-    string lowerLeft = flip(it);
-
     
 }
