@@ -1,30 +1,27 @@
 #include <iostream>
 #include <vector>
 
-
 using namespace std;
 
-int bruteForce(const vector<int>& boards);
-int getSize(const vector<int>& boards, int left, int right);
+int get_size(vector<int>& fence, int start, int end);
 
 int main()
 {
     int numCases=0;
+    cin>>numCases;
     vector<int> results;
 
-    cin>>numCases;
-
     for(int i=0; i<numCases; i++){
-        int numBoards = 0;
-        vector<int> boards;
-        cin>>numBoards;
-        for(int j=0; j<numBoards; j++){
-            int tmp=0;            
+        int numFences =0;
+        cin>>numFences;
+        vector<int> fence;
+        for(int j=0; j<numFences; j++){
+            int tmp=0;
             cin>>tmp;
-            boards.push_back(tmp);
+            fence.push_back(tmp);
         }
 
-        results.push_back(getSize(boards, 0,boards.size()-1));
+        results.push_back(get_size(fence, 0, fence.size()));
     }
 
     for(int i=0; i<numCases; i++){
@@ -34,47 +31,30 @@ int main()
     return 0;
 }
 
-int bruteForce(const vector<int>& boards)
+int get_size(vector<int>& fence, int start, int end)
 {
-    int ret =0;
-    int N = boards.size();
-
-    for(int i=0; i<N; i++){
-        int minHeight = boards[i];
-        for(int j=i; j<N;j++){
-            minHeight= min(minHeight, boards[j]);
-            ret = max(ret, (j-i+1)*minHeight);
-        }
-    }
-    return ret;
-}
-
-int getSize(const vector<int>& boards, int left, int right)
-{   
-    
     //BASE CASE
-    if(left==right) return boards[left];
-    //분할
-    int mid = (right+left)/2;
-    int ret = max(getSize(boards, left, mid),getSize(boards, mid+1, right));
+    if(end-start == 1) return fence[start];
 
-    //두 부분에 걸친 사각형 중 가장 큰 것을 찾는다.
-    int lo = mid, hi = mid+1;
-    int height = min(boards[lo], boards[hi]);
+    int half = (end+start)/2;
+    int ret = max(get_size(fence, 0, half), get_size(fence, half, end));
 
-    ret = max(ret, height*2);
+    int left = half-1;
+    int right = half;
+    int height = min(fence[left], fence[right]);
 
-    while(left<lo ||hi <right){
-        if(hi<right && (lo==left || boards[lo-1]<boards[hi+1])){
-            ++hi;
-            height = min(height, boards[hi]);
+    while(start<=left || right<end-1){
+        if((right<end-1 && (left==start || fence[left-1]<fence[right+1]))){
+            right++;
+            height = min(height, fence[right]);
         }
         else{
-            --lo;
-            height = min(height, boards[lo]);
+            left--;
+            height = min(height, fence[left]);
         }
-        ret = max(ret, height*(hi-lo+1));
     }
+
+    ret = max(ret, height*(right-left+1));
 
     return ret;
 }

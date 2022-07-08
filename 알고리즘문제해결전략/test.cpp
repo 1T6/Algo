@@ -3,11 +3,11 @@
 
 using namespace std;
 
-int get_size(vector<int>& fence, int sIdx, int eIdx);
+int get_size(vector<int>& fence, int start, int end);
 
 int main()
-{   
-    int numCases = 0;
+{
+    int numCases=0;
     cin>>numCases;
     vector<int> results;
 
@@ -15,39 +15,46 @@ int main()
         int numFences =0;
         cin>>numFences;
         vector<int> fence;
-        for(int j=0; j< numFences; j++){
-            int tmp =0;
+        for(int j=0; j<numFences; j++){
+            int tmp=0;
             cin>>tmp;
             fence.push_back(tmp);
         }
-        results.push_back(get_size(fence, 0, numFences));
+
+        results.push_back(get_size(fence, 0, fence.size()));
     }
 
     for(int i=0; i<numCases; i++){
         cout<<results[i]<<endl;
     }
-    
+
     return 0;
 }
 
-int get_size(vector<int>& fence, int sIdx, int eIdx)
+int get_size(vector<int>& fence, int start, int end)
 {
     //BASE CASE
-    if(eIdx-sIdx == 1) return fence[sIdx];
+    if(end-start == 1) return fence[start];
 
-    int halfIdx = (eIdx-sIdx)/2;
+    int half = (end+start)/2;
+    int ret = max(get_size(fence, 0, half), get_size(fence, half, end));
 
-    int leftSize = get_size(fence, sIdx, halfIdx);
-    int rightSize = get_size(fence, halfIdx, eIdx);
+    int left = half-1;
+    int right = half;
+    int height = min(fence[left], fence[right]);
 
-    int leftHeight = leftSize/(halfIdx-sIdx);
-    int rightHeight = rightSize/(eIdx-halfIdx);
+    while(start<=left || right<end-1){
+        if((right<end-1 && (left==start || fence[left-1]<fence[right+1]))){
+            right++;
+            height = min(height, fence[right]);
+        }
+        else{
+            left--;
+            height = min(height, fence[left]);
+        }
+    }
 
-    int newHeight = (leftHeight>rightHeight) ? leftHeight : rightHeight;
-    int newSize = newHeight*(eIdx-sIdx);
+    ret = max(ret, height*(right-left+1));
 
-    
-    int ret = (leftSize>rightHeight) ? leftSize : rightHeight;
-    if(newSize>ret) return newSize;
-    else return ret;
+    return ret;
 }
