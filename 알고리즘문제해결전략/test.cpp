@@ -1,60 +1,34 @@
 #include <iostream>
-#include <vector>
+
+
 
 using namespace std;
 
-int get_size(vector<int>& fence, int start, int end);
+int cache [30][30];
+int bino(int n, int r);
 
 int main()
-{
-    int numCases=0;
-    cin>>numCases;
-    vector<int> results;
+{   
+    fill(&cache[0][0], &cache[29][29], -1);
 
-    for(int i=0; i<numCases; i++){
-        int numFences =0;
-        cin>>numFences;
-        vector<int> fence;
-        for(int j=0; j<numFences; j++){
-            int tmp=0;
-            cin>>tmp;
-            fence.push_back(tmp);
+    for(int i=0; i<30; i++){
+        for(int j=0; j<30; j++){
+            cout<<cache[i][j];
         }
-
-        results.push_back(get_size(fence, 0, fence.size()));
+        cout<<endl;
     }
+    int tmp1, tmp2;
+    cin>>tmp1>>tmp2;
 
-    for(int i=0; i<numCases; i++){
-        cout<<results[i]<<endl;
-    }
+    cout<<bino(tmp1, tmp2);
 
     return 0;
 }
 
-int get_size(vector<int>& fence, int start, int end)
+int bino(int n, int r)
 {
     //BASE CASE
-    if(end-start == 1) return fence[start];
+    if(n==r || r ==0) return 1;
 
-    int half = (end+start)/2;
-    int ret = max(get_size(fence, 0, half), get_size(fence, half, end));
-
-    int left = half-1;
-    int right = half;
-    int height = min(fence[left], fence[right]);
-
-    while(start<=left || right<end-1){
-        if((right<end-1 && (left==start || fence[left-1]<fence[right+1]))){
-            right++;
-            height = min(height, fence[right]);
-        }
-        else{
-            left--;
-            height = min(height, fence[left]);
-        }
-    }
-
-    ret = max(ret, height*(right-left+1));
-
-    return ret;
+    if
 }
