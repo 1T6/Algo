@@ -1,34 +1,59 @@
 #include <iostream>
-
-
+#include <vector>
+#include <string>
 
 using namespace std;
 
-int cache [30][30];
-int bino(int n, int r);
+bool inRange(int y, int x);
+bool jump(int y, int x);
+string solve();
+
+int map[100][100];
+int n;
 
 int main()
 {   
-    fill(&cache[0][0], &cache[29][29], -1);
-
-    for(int i=0; i<30; i++){
-        for(int j=0; j<30; j++){
-            cout<<cache[i][j];
+    int numCases;
+    cin>>numCases;
+    vector<string> results;
+    for(int i=0; i<numCases; i++){
+        cin>>n;
+        for(int j=0; j<n; j++){
+            for(int k=0; k<n; k++){
+                cin>>map[j][k];
+            }
         }
-        cout<<endl;
-    }
-    int tmp1, tmp2;
-    cin>>tmp1>>tmp2;
 
-    cout<<bino(tmp1, tmp2);
+
+        results.push_back(solve());
+    }
+
+    for(int i=0; i<numCases; i++){
+        cout<<results[i]<<endl;
+    }
 
     return 0;
 }
 
-int bino(int n, int r)
+bool inRange(int y, int x)
+{
+    return (y>=0 && x>=0 && y<n && x<n);
+}
+
+bool jump(int y, int x)
 {
     //BASE CASE
-    if(n==r || r ==0) return 1;
+    if(!inRange(y,x)) return false;
+    if(y==n-1 && x== n-1) return true;
 
-    if
+    int mov = map[y][x];
+    
+    return jump(y+mov, x) || jump(y,x+mov);
+}
+
+string solve()
+{
+    bool ret = jump(0,0);
+    if(ret == false) return "NO";
+    else return "Yes";
 }
