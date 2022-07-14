@@ -1,20 +1,18 @@
 #include <iostream>
 #include <vector>
+#include <string>
 
 using namespace std;
 
-int a();
-
+char func();
+int a;
 int main()
 {
-    int k=0;
-    k=a();
-    return 0;
+    
+    cin>>a;
+    func();
 }
-
-int a()
+char func()
 {
-    bool k = true;
-
-    return ;
+    if(a) return 'a';
 }

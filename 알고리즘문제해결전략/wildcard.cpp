@@ -4,38 +4,55 @@
 
 using namespace std;
 
-bool match(string::iterator& itW, string::iterator& itT);
+void match(string::iterator& itW, string::iterator& itT);
 
 string wildCard;
 string target;
-int N;
+int n;
+bool finished = false;
 
 int main()
 {
+    int numCases;
+    cin>>numCases;
+    vector<string> results;
+    for(int i=0; i<numCases; i++){
+        cin>>wildCard>>n;
+        for(int j=0; j<n; j++){
+            cin>>target;
+            string::iterator itW = wildCard.begin();
+            string::iterator itT = target.begin();
+            
+            
+        }
+    }
+    for(int i=0; i<numCases; i++){
+        cout<<results[i]<<endl;
+    }
+
     return 0;
 }
-
-bool match(string::iterator& itW, string::iterator& itT);
+void match(string::iterator& itW, string::iterator& itT)
 {
     //BASE CASE
-    if(itW == wildCard.end() && itT == target.end()) return true;
-    
-    if(*itW =='*'){
-        
+    if(itW==wildCard.end() && itT == target.end()){
+        finished = true;
+        return;
     }
-    else if(*itW =='?'){
+
+    char current = *itW;
+    
+    if(current == '*'){
+
+    }
+    else if(current  == '?'){
         itW++;
         itT++;
         match(itW, itT);
     }
-    //일반 문자인 경우   
     else{
-        if(*itW == *itT){
-            itW++;
-            itT++;
-            match(itW, itT);
-        }
+
     }
 
-
+    
 }
