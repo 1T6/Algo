@@ -1,58 +1,55 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstring>
+#include <algorithm>
 
 using namespace std;
 
-void match(string::iterator& itW, string::iterator& itT);
+int cache[101][101];
+string W, S;
 
-string wildCard;
-string target;
-int n;
-bool finished = false;
+bool match(int w, int s);
 
 int main()
 {
     int numCases;
     cin>>numCases;
     vector<string> results;
+    
     for(int i=0; i<numCases; i++){
-        cin>>wildCard>>n;
+        int n;
+        cin>>W>>n;
         for(int j=0; j<n; j++){
-            cin>>target;
-            string::iterator itW = wildCard.begin();
-            string::iterator itT = target.begin();
-            
-            
+            memset(cache, -1, sizeof(cache));
+            cin>>S;
+            bool ret = match(0,0);  
+            if(ret == true) results.push_back(S);
         }
     }
-    for(int i=0; i<numCases; i++){
+    
+    sort(results.begin(), results.end());
+
+
+    for(int i=0; i<results.size(); i++){
         cout<<results[i]<<endl;
     }
-
     return 0;
 }
-void match(string::iterator& itW, string::iterator& itT)
+bool match(int w, int s)
 {
-    //BASE CASE
-    if(itW==wildCard.end() && itT == target.end()){
-        finished = true;
-        return;
-    }
+    int& ret = cache[w][s];
+    if(ret != -1) return ret;
 
-    char current = *itW;
+    while(s<S.size() && w<W.size() && (W[w]=='?' || W[w]==S[s])){
+        return ret = match(w+1, s+1);
+    }
+    if(w==W.size()) return ret = (s==S.size());
+
+    if(W[w] =='*'){
+        //아무 글자도 대응되지 않는 경우, 다음 글자가 대응되는 경우.
+        if(match(w+1, s) || (s<S.size() && match(w, s+1))) return ret = 1;
+    }
     
-    if(current == '*'){
-
-    }
-    else if(current  == '?'){
-        itW++;
-        itT++;
-        match(itW, itT);
-    }
-    else{
-
-    }
-
-    
+    return ret =0;
 }

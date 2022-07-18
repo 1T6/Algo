@@ -1,18 +1,16 @@
-#include <iostream>
 #include <vector>
+#include <iostream>
 #include <string>
 
 using namespace std;
+bool a();
 
-char func();
-int a;
 int main()
 {
-    
-    cin>>a;
-    func();
+    cout<<a()<<endl;
 }
-char func()
+bool a()
 {
-    if(a) return 'a';
+    int ret =1;
+    return ret=0;
 }
