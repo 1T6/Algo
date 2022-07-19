@@ -4,12 +4,12 @@
 
 using namespace std;
 
-
 int n;
 int map[101][101];
 int cache[101][101];
 
 int solve(int y, int x);
+bool inRange(int y, int x);
 
 int main()
 {
@@ -28,13 +28,26 @@ int main()
         results.push_back(solve(0,0));
     }
 
-    for(int i=0; i<n; i++){
+    for(int i=0; i<numCases; i++){
         cout<< results[i]<<endl;
     }
     return 0;
 }
-
 int solve(int y, int x)
-{
+{   
+    if(!inRange(y,x)) return 0;
+
+    int& ret = cache[y][x];
+    if(ret != -1) return ret;
+
+    int currentWeight = map[y][x];
+    int belowPath = solve(y+1,x);
+    int belowRightPath = solve(y+1, x+1);
     
+    return ret = currentWeight + max(belowPath, belowRightPath);
+}
+
+bool inRange(int y, int x)
+{
+    return (y<n && x<n && x<=y);
 }

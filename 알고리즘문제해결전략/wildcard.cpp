@@ -18,18 +18,18 @@ int main()
     vector<string> results;
     
     for(int i=0; i<numCases; i++){
+        vector<string> tmp;
         int n;
         cin>>W>>n;
         for(int j=0; j<n; j++){
             memset(cache, -1, sizeof(cache));
             cin>>S;
             bool ret = match(0,0);  
-            if(ret == true) results.push_back(S);
+            if(ret == true) tmp.push_back(S);
         }
+        sort(tmp.begin(), tmp.end());
+        results.insert(results.end(), tmp.begin(), tmp.end());
     }
-    
-    sort(results.begin(), results.end());
-
 
     for(int i=0; i<results.size(); i++){
         cout<<results[i]<<endl;
