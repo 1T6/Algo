@@ -1,16 +1,16 @@
-#include <vector>
 #include <iostream>
-#include <string>
+#include <cstring>
 
 using namespace std;
-bool a();
+
+int a[10];
+
 
 int main()
 {
-    cout<<a()<<endl;
-}
-bool a()
-{
-    int ret =1;
-    return ret=0;
+    memset(a, -1, sizeof(int)*5);
+    for(int i=0; i<10; i++){
+        cout<<a[i]<<endl;
+    }
+    return 0;
 }
