@@ -1,29 +1,26 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <cstring>
 
 using namespace std;
 
 
+string N;
+const int INF =999999;
+int cache[10002];
 
-int seq[10000];
-int cache[10000];
+int classify(int x, int y);
+int solve(int x);
 
 int main()
 {
     int numCases;
     cin>>numCases;
     vector<int> results;
+    for(int i=0; i<numCases; i++){
+        cin>>N;
 
-    for(int i=0; i<numCases;i++){
-        string tmp;
-        cin>> tmp;
-        memset(cache, -1, cache);
-        for(int j=0; j<tmp.length(); j++){
-            seq[j] = tmp[j];
-        }
-        results.push_back(solve());
+
     }
 
     for(int i=0; i<numCases; i++){
@@ -33,7 +30,7 @@ int main()
     return 0;
 }
 
-int solve(int x)
+int classify(int a, int b);
 {
     
 }
