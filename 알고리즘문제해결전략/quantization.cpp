@@ -28,7 +28,7 @@ int main()
     return 0;
 }
 
-int solve()
+int solve()dfsdaf
 {
 
 }
