@@ -2,16 +2,12 @@
 #include <vector>
 #include <string>
 #include <cstring>
-
 using namespace std;
-
 string N;
 int cache[10000 ];
 int INF =999999999;
-
 int classify(int start, int num);
 int solve(int x);
-
 int main()
 {
     int numCases;
