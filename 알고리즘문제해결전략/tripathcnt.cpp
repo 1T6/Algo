@@ -1,39 +1,45 @@
 #include <iostream>
-#include <vector>
 #include <cstring>
 
 using namespace std;
 
-int path[100][100];
+int cache[100][100];
+int map[100][100];
 int n;
+int cacheCnt[100][100];
 
-//하나는 최대경로를 저장하고 하나는 
-int cache[100][100][2];
-
+int path(int y, int x);
 
 int main()
 {
-    int numCases;
-    cin>>numCases;
-    vector<int> results;
-    for(int i=0; i<numCases; i++){
-        memset(cache, -1, sizeof(cache));
-        cin>>n;
-        for(int j=0; j<n; j++){
-            for(int k=0; k<=j; k++){
-                cin>>path[j][k];
-            }
+    cin>>n;
+    memset(cache, -1, sizeof(cache));
+    memset(cacheCnt, -1, sizeof(cacheCnt));
+    for(int i=0; i<n; i++){
+        for(int j=0; j<=i; j++){
+            cin>>map[i][j];
         }
-        results.push_back(solve());
     }
-    for(int i=0; i<numCases; i++){
-        cout<<results[i]<<endl;
-    }
-
+    cout<<path(0,0)<<endl;
     return 0;
 }
 
-int solve(int y, int x)
+int path(int y, int x)
 {
+    if(y>=n || x>=y+1) return 0;
+    int& ret = cache[y][x];
+    if(ret != -1) return ret;
+
+    ret = map[y][x]+max(path(y+1, x),path(y+1, x+1));
     
+    return ret;
+}
+int count(int y, int x)
+{
+    if(y>=n || x>=y+1) return 0;
+    int& ret = cacheCnt[y][x];
+    if(ret!= -1) return ret;
+
+    ret = count(y+1, x) + count(y+1, x+1);
+    return ret;
 }
