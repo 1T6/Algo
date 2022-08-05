@@ -1,14 +1,14 @@
 #include <iostream>
 #include <vector>
 #include <cstring>
-
+#include <cmath>
 
 using namespace std;
 
 int n,m;
 double prob(int days, int climbed);
 
-double cache[1000][];
+double cache[1000][2000];
 
 int main()
 {
@@ -16,7 +16,7 @@ int main()
      cin>>numCases;
      vector<double> results;
      for(int i=0; i<numCases; i++){
-          memset(cahce,-1, sizeof(cache));
+          memset(cache,-1, sizeof(cache));
           cin>>n>>m;
           results.push_back(prob(0,0));
      }
@@ -27,11 +27,10 @@ int main()
 }
 double prob(int days, int climbed)
 {
-     
+     if(days==n) return climbed>=n? 1:0;
      double& ret = cache[days][climbed];
-     if(ret!= -1) return ret;
+     if(!isnan(ret)) return ret;
 
-
-     ret = 0.25*  prob(days+1, climbed+1) + 0.75 * prob(days+1, climbed+2);
+     ret = 0.25 * prob(days+1, climbed+1) + 0.75 * prob(days+1, climbed+2);
      return ret;
 }
