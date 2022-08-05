@@ -27,7 +27,7 @@ int main()
 }
 double prob(int days, int climbed)
 {
-     if(days==n) return climbed>=n? 1:0;
+     if(days==n) return climbed>=n ? (double)1 : 0;
      double& ret = cache[days][climbed];
      if(!isnan(ret)) return ret;
 
