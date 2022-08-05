@@ -1,45 +1,58 @@
 #include <iostream>
+#include <vector>
 #include <cstring>
 
 using namespace std;
 
-int cache[100][100];
-int map[100][100];
 int n;
-int cacheCnt[100][100];
+int cache[100][100];
+int cntCache[100][100];
+int map[100][100];
 
 int path(int y, int x);
+int cnt(int y, int x);
 
 int main()
 {
-    cin>>n;
-    memset(cache, -1, sizeof(cache));
-    memset(cacheCnt, -1, sizeof(cacheCnt));
-    for(int i=0; i<n; i++){
-        for(int j=0; j<=i; j++){
-            cin>>map[i][j];
+    int numCases;
+    cin>>numCases;
+    vector<int> results;
+    for(int i=0; i<numCases; i++){
+        memset(cache, -1, sizeof(cache));
+        memset(cntCache, -1, sizeof(cntCache));
+        cin>>n;
+        for(int j=0; j<n; j++){
+            for(int k=0; k<=j; k++){
+                cin>>map[j][k];
+            }
         }
+        results.push_back(cnt(0,0));
     }
-    cout<<path(0,0)<<endl;
+    for(int i=0; i<numCases; i++){
+        cout<<results[i]<<endl;
+    }
     return 0;
 }
 
 int path(int y, int x)
 {
-    if(y>=n || x>=y+1) return 0;
+    if(y==n) return 0;
     int& ret = cache[y][x];
     if(ret != -1) return ret;
 
-    ret = map[y][x]+max(path(y+1, x),path(y+1, x+1));
-    
+    ret = map[y][x] + max(path(y+1, x), path(y+1, x+1));
+
     return ret;
 }
-int count(int y, int x)
-{
-    if(y>=n || x>=y+1) return 0;
-    int& ret = cacheCnt[y][x];
-    if(ret!= -1) return ret;
 
-    ret = count(y+1, x) + count(y+1, x+1);
+int cnt(int y, int x)
+{
+    if(y==n-1) return 1;
+    int& ret = cntCache[y][x];
+    if(ret != -1) return ret;
+    ret=0;
+    if(path(y+1, x) >= path(y+1, x+1)) ret += cnt(y+1,x);
+    if(path(y+1, x) <= path(y+1, x+1)) ret += cnt(y+1, x+1);
+
     return ret;
 }
