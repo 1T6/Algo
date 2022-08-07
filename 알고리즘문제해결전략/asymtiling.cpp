@@ -5,10 +5,14 @@
 using namespace std;
 
 int n;
-int cache[100];
+//0은 그냥 최대 거리를 반환하고, 1은 mod로 나눈 몫을 구한다.
+int cache[100][2];
 int mod = 1000000007;
-int fill(int x);
+
 int solve();
+int fill(int start);
+int cal(pair<int, int> a, pair<int,int> b);
+
 
 int main()
 {
@@ -29,16 +33,11 @@ int fill(int x)
 {
      if(x==n) return 1;
      if(x>n) return 0;
-     int& ret = cache[x];
-     if(ret != -1) return ret;
-     return ret = (fill(x+1) + fill(x+2));
-}
-int solve()
-{
-     memset(cache, -1, sizeof(cache));
-     int tmp = fill(0);
-     tmp-=fill(n/2+1);
-     if(n%2 ==0)
-          tmp-=fill(n/2);
-     return tmp%mod;
+     int& ret1 = cache[x][0];
+     int& ret2 = cache[x][1];
+     if(ret1 != -1) return ret;
+
+     ret1 = fill(x+1) + fill(x+2);
+     
+
 }

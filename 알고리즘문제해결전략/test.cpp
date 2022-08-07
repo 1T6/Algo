@@ -1,10 +1,13 @@
 #include <iostream>
+#include <limits>
 
 using namespace std;
 
+
 int main()
 {
-    int a = 2;
-    a/=3;
+    const int a = numeric_limits<int>::max();
     cout<<a<<endl;
+    return 0;
 }
+//2,147,483,647
