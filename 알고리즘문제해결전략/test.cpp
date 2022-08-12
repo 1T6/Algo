@@ -1,19 +1,19 @@
 #include <iostream>
-#include <cstring>
-#include <vector>
+#include <limits>
 
 
 using namespace std;
 
-int a[2];
-
 int main()
 {
-    int& x = a[0];
-    int& y = a[1];
-    pair<int, int> p = make_pair(x,y);
+    cout<<numeric_limits<char>::max()<<endl;
+    cout<<numeric_limits<short>::max()<<endl;
+    cout<<numeric_limits<int>::max()<<endl;
+    cout<<numeric_limits<long>::max()<<endl;
+    cout<<numeric_limits<long long>::max()<<endl;
+    cout<<fixed<<endl;
+    cout<<numeric_limits<long double>::max()<<endl;
     
-    p.first = 1;
-    cout<<p.first<<endl;
-    cout<<a[0]<<endl;
+
+    return 0;
 }
