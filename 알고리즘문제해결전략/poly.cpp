@@ -7,7 +7,7 @@ using namespace std;
 int n;
 int solve();
 int mod = 10000000;
-int cache[100][100];
+int cache[101][101];
 int cnt(int rest, int first);
 int solve();
 int main()
@@ -32,7 +32,11 @@ int cnt(int rest, int first)
      if(ret!= -1) return ret;
      ret =0;
      for(int i=1; i<=rest-first; i++){
-          ret +=cnt(rest-first, i)*(first+i-1)/mod;
+          int add = i+first-1;
+          add *= cnt(rest-first, i);
+          add %=mod;
+          ret += add;
+          ret%= mod;
      }
      return ret;
 }
