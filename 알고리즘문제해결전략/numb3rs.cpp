@@ -46,18 +46,15 @@ int main()
 }
 double prob(int days, int target)
 {       
-    if(days == 0) return 1;
+    if(days == 0 && target == p) return 1;
     double& ret = cache[days][target];
     if(ret != -1) return ret;
-    
     ret = 0;
-    
     for(int i=0; i<n; i++){
         if(A[target][i]){
            ret += prob(days-1, i) * 1/5; 
         }
     }
-
     return ret;
 }
 
