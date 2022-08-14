@@ -37,7 +37,7 @@ int main()
 
         results = solve(targets);
 
-        cout.precision(7);
+        cout.precision(7);  
         for(int j=0; j<t; j++){
             cout<<results[i]<<" ";
         }
@@ -55,6 +55,7 @@ double prob(int day, int target)
 
     ret =0;
     for(int i=0; i<n; i++){
+        
         if(A[target][i]){
             ret+= prob(day-1, i)*1/5;
         }
@@ -72,6 +73,7 @@ vector<double> solve(vector<int> targets)
     
     vector<double> ret;
     for(int i=0; i<targets.size(); i++){
+        cout<<prob(d,targets[i])<<endl;
         ret.push_back(prob(d, targets[i]));
     }
 
