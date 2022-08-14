@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 int n, d, p;
 int A[50][50];
 int degree[50];
@@ -18,7 +17,7 @@ int main()
 {
     int numCases;
     cin>>numCases;
-    vector< vector<double> > results;
+    vector<vector<double>> results;
     for(int i=0; i<numCases; i++){
         vector<double> result;
         cin>>n>>d>>p;
@@ -40,6 +39,7 @@ int main()
     }
 
     cout.precision(8);
+    cout<<fixed;
     for(int i=0; i<numCases; i++){
         for(int j=0; j<results[i].size(); j++){
             cout<<results[i][j]<<" ";
@@ -59,14 +59,14 @@ double prob(int days, int target)
 
     for(int i=0; i<n; i++){
         if(A[target][i]){
-            ret +=prob(days-1, i) * 1/degree[i];
+            ret += prob(days-1, i) * 1/degree[i];
         }
     }
     return ret;
 }
 vector<double> solve(vector<int> targets)
 {
-    fill(&cache[0][0], &cache[49][50], -1);
+    fill(&cache[0][0], &cache[99][50], -1);
     cntTargets();
     vector<double> ret;
     for(int i=0; i<targets.size(); i++){

@@ -1,22 +1,11 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
+
 using namespace std;
-
-int a[10][10];
-
-
 
 int main()
 {
-     fill(&a[0][0], &a[9][10], -1);
 
-     for(int i=0; i<10; i++){
-          for(int j=0; j<10; j++){
-               cout<<a[i][j]<<" ";
-          }
-          cout<<endl;
-     }
-
+     vector<vector<int>> a;
      return 0;
 }
