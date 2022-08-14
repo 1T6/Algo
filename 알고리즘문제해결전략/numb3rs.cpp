@@ -53,7 +53,7 @@ double prob(int days, int target)
     if(days == 0 && target == p) return 1;
     if(days == 0 && target != p) return 0;
     double& ret = cache[days][target];
-    if(ret != -1) return ret;
+    if(ret > -0.5) return ret;
 
     ret =0;
 
