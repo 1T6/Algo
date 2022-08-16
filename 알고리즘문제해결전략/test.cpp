@@ -1,12 +1,21 @@
 #include <iostream>
-
+#include <string>
+#include <vector>
 
 using namespace std;
 
-int a[50];
+int n, w;
 
 int main()
 {
-     memset(a, -1, sizeof(a));
+     cin>>n>>w;
+     vector<string> items;
+     for(int i=0; i<n; i++){
+          string tmp;
+          int a, b;
+          cin>>tmp>>a>>b;
+          items.push_back(tmp);
+     }
+     cout<<"finished"<<endl;
      return 0;
 }
