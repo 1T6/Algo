@@ -8,7 +8,7 @@ using namespace std;
 int n, w;
 int volume[100], need[100];
 int cache[1000][100];
-string name[100];
+string items[100];
 
 
 int pack(int rest, int item);
@@ -23,7 +23,7 @@ int main()
 
           cin>>n>>w;
           for(int j=0; j<n; j++){
-               cin>>name[j]>>volume[j]>>need[j];
+               cin>>items[j]>>volume[j]>>need[j];
           }
           int result = pack(w,0);
           vector<string> picked;
@@ -31,7 +31,7 @@ int main()
 
 
 
-          cout<<result<<" "<< picked.size();
+          cout<<result<<" "<< picked.size()<<endl;
           for(int j=0; j<n; j++){
                cout<<picked[j]<<endl;
           }
@@ -42,9 +42,25 @@ int main()
 
 int pack(int rest, int item)
 {
+     if(item == n) return 0;
+     int& ret = cache[rest][item];
+     if(ret != -1) return ret;
 
+     ret = pack(rest, item+1);
+     if(rest>=volume[item])
+          ret = max(ret, pack(rest-volume[item], item+1)
+                    +need[item]);
+     
+     return ret;
 }
 void getPicked(int rest, int item, vector<string>& picked)
 {
-
+     if(item == n) return;
+     if(pack(rest, item) == pack(rest, item+1)){
+          getPicked(rest, item+1, picked);
+     }
+     else{
+          picked.push_back(items[item]);
+          getPicked(rest-volume[item], item+1, picked);
+     }
 }
