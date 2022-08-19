@@ -1,33 +1,19 @@
 #include <vector>
 #include <iostream>
-#include <cstring>
 #include <string>
+#include <cstring>
 
 using namespace std;
 
-int n,w;
-int need[100], volume[100];
-int cache[1000][100];
 
-int pack(int rest, int item);
+string a[10];
 
 int main()
 {
-     cin>>n>>w;
-     vector<string> items;
-     for(int i=0; i<n; i++){
-          string tmp;
-          cin>> tmp >> volume[i]>> need[i];
-          items.push_back(tmp);
+     memset(a, -1, sizeof(a));
+     for(int i=0; i<10; i++){
+          
+          cout<<a[i]<<endl;
      }
-     
-
-
      return 0;
-}
-
-int pack(int rest, int item)
-{
-     int& ret = cache[rest][item];
-     if(ret != -1) return ret;
 }

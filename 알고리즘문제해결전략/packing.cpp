@@ -1,20 +1,50 @@
-/*
-int func(int rest, int item) 
+#include <iostream>
+#include <vector>
+#include <string>
+#include <cstring>
 
-내가 생각한 알고리즘은
-rest 남았을때 item을 선택했을 경우 반환하는 최대 need
+using namespace std;
 
-책에서 정의한 알고리즘은 
-rest만큼 남았을때 item 이후 물건들을 사용해서 얻을 수 있는 최대 need
+int n, w;
+int volume[100], need[100];
+int cache[1000][100];
+string name[100];
 
-어떤 차이가 있을까? 어느 방법이 옳을까?
 
-함수 호출 방면에서는 어떤 방법이 더 좋은가? 
-내 방법은 선택을 할때마다 함수를 호출하면 되지만 책의 방법은 선택을 하지 않는 경우에도 함수를 호출해야 한다.
+int pack(int rest, int item);
+void getPicked(int rest, int item, vector<string>& picked);
 
-메모이제이션 측면에서는 그럼 어떤것이 더 좋은가?
-선택하는 경우, 선택하지 않는 경우를 포함해서 캐싱을 하기 때문에 이 방법이 유리하다.
-그러면...? 
+int main()
+{
+     int numCases;
+     cin>>numCases;
+     for(int i=0; i<numCases; i++){
+          memset(cache, -1, sizeof(cache));
 
-아 모르겠다 그냥 메모이제이션을 사용하겠다고 생각을 했으면 더 일반적인 정의로 최적 부분구조를 최대한 많이 만드는 방향으로 하자!
-*/
+          cin>>n>>w;
+          for(int j=0; j<n; j++){
+               cin>>name[j]>>volume[j]>>need[j];
+          }
+          int result = pack(w,0);
+          vector<string> picked;
+          getPicked(w, 0, picked);
+
+
+
+          cout<<result<<" "<< picked.size();
+          for(int j=0; j<n; j++){
+               cout<<picked[j]<<endl;
+          }
+     }
+     return 0;
+}
+
+
+int pack(int rest, int item)
+{
+
+}
+void getPicked(int rest, int item, vector<string>& picked)
+{
+
+}
