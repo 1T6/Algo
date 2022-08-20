@@ -1,19 +1,31 @@
-#include <vector>
 #include <iostream>
+#include <vector>
 #include <string>
-#include <cstring>
+
 
 using namespace std;
 
-
-string a[10];
-
 int main()
 {
-     memset(a, -1, sizeof(a));
-     for(int i=0; i<10; i++){
-          
-          cout<<a[i]<<endl;
+     /*
+     int m;
+     cin>>m;
+     vector<string> words;
+     for(int i=0; i<m; i++){
+          string tmp;
+          cin>>tmp;
+          words.push_back(tmp);
      }
+
+     for(int i=0; i<m; i++){
+          cout<<words[i]<<endl;
+     }
+     */
+
+    string tmp;
+    getline(cin, tmp);
+    cout<<tmp<<endl;
+
+
      return 0;
 }
