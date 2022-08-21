@@ -11,7 +11,12 @@ int B[500];
 int T[500][500];
 int M[500][500];
 
+int cache[500][500];
+
 int n;
+string line;
+
+int maxProb(int target, int before);
 
 int main()
 {
@@ -38,14 +43,21 @@ int main()
      //테스트
      for(int i=0; i<q; i++){
           cin>>n;
-          vector<string> target;
-          for(int j=0; j<n; j++){
-               string tmp;
-               cin>>tmp;
-          }
-          solve();
+          cin>>line;
+          cout<<solve();
      }
 
      return 0;
 }
 
+int maxProb(int target, int before)
+{
+     if(target == n) return 1;
+     
+     int& ret = cache[target][before];
+     if(ret != -1) return ret;
+
+     ret = 1;
+
+
+}
