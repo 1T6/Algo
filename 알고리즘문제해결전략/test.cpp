@@ -1,17 +1,17 @@
 #include <iostream>
-#include <vector>
 #include <string>
 
 using namespace std;
 
-string asdf();
-
 int main()
 {
-     cout<<asdf()<<endl;
+     string a  = " ";
+
+     a += "asdf ";
+     a = a.substr(0, a.size()-1);
+     cout<<a<< a.size();
+     
+
      return 0;
-}
-string asdf()
-{
-     return "asdf";
+
 }
