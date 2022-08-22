@@ -9,7 +9,7 @@ using namespace std;
 
 int m, q;
 
-map<string,int> map;
+map<string, int> map1;
 
 double B[500];
 double T[500][500];
@@ -30,7 +30,7 @@ int main()
      for(int i=0; i<m; i++){
           string tmp;
           cin>>tmp;
-          map.insert(pair<string, int>(tmp, i)); 
+          map1.insert(pair<string, int>(tmp, i)); 
      }
      for(int i=0; i<m; i++){
           cin>>B[i];
@@ -51,7 +51,7 @@ int main()
           cin>>n;
           for(int j=0; j<n; j++){
                cin>>word[j];
-               idx = map[word[j]];
+               idx = map1[word[j]];
           }
 
           cout<<solve();
