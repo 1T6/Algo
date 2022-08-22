@@ -3,11 +3,14 @@
 #include <string>
 #include <cstring>
 #include <algorithm>
+#include <map>
 
 using namespace std;
 
 int m, q;
-vector<string> words;
+
+map<string,int> map;
+
 double B[500];
 double T[500][500];
 double M[500][500];
@@ -15,7 +18,8 @@ double cache[500][500];
 
 int choices[500];
 int n;
-string line;
+string word[500];
+int idx[500];
 double maxProb(int target, int before);
 
 string solve();
@@ -26,7 +30,7 @@ int main()
      for(int i=0; i<m; i++){
           string tmp;
           cin>>tmp;
-          words.push_back(tmp);
+          map.insert(pair<string, int>(tmp, i)); 
      }
      for(int i=0; i<m; i++){
           cin>>B[i];
@@ -45,7 +49,11 @@ int main()
      //테스트
      for(int i=0; i<q; i++){
           cin>>n;
-          cin>>line;
+          for(int j=0; j<n; j++){
+               cin>>word[j];
+               idx = map[word[j]];
+          }
+
           cout<<solve();
      }
 
@@ -65,10 +73,10 @@ double maxProb(int target, int before)
      for(int i=0; i<m; i++){
           double cand;
           if(target ==0){
-               cand = maxProb(target+1, i) * M[i][target] * B[i];
+               cand = maxProb(target+1, i) * M[i][idx[target]] * B[i];
           }
           else{
-               cand = maxProb(target+1, i) * M[i][target] * T[before][i];
+               cand = maxProb(target+1, i) * M[i][idx[target]] * T[before][i];
           }
 
           if(cand>ret){
@@ -87,8 +95,8 @@ string solve()
 
      string ret = "";
      for(int i=0; i<n; i++){
-          ret += words[i]+ " ";
+          cout<<choices[i];
      }
-
+     
      return ret = ret.substr(0, ret.size()-1);
 }

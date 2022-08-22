@@ -1,17 +1,13 @@
 #include <iostream>
-#include <string>
+#include <map>
 
 using namespace std;
 
 int main()
 {
-     string a  = " ";
-
-     a += "asdf ";
-     a = a.substr(0, a.size()-1);
-     cout<<a<< a.size();
-     
-
+     map<string, int> map;
+     string tmp ="sdf";
+     map.insert(pair<string, int>(tmp,1));
+     cout<<map[tmp];
      return 0;
-
 }
