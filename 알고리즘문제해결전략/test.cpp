@@ -43,7 +43,6 @@ int main()
             cin>>M[i][j];
         }
     }
-
     for(int i=0; i<q; i++){
         cin>>n;
         for(int j=0; j<n; j++){
@@ -67,10 +66,10 @@ double maxProb(int target, int before)
     for(int i=0; i<m; i++){
         double cand=0;
         if(target == 0){
-            cand = maxProb(target+1, i) + M[i][strToIdx[words[target]]] * B[i];
+            cand = maxProb(target+1, i) + M[i][strToIdx[words[target]]] + B[i];
         }         
         else{
-            cand = maxProb(target+1, i) + M[i][strToIdx[words[target]]] * T[before][i];
+            cand = maxProb(target+1, i) + M[i][strToIdx[words[target]]] + T[before][i];
         }
 
         if(cand>ret){
