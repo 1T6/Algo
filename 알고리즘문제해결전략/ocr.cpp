@@ -1,102 +1,108 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <cstring>
 #include <algorithm>
 #include <map>
+#include <cmath>
+#include <limits>
 
 using namespace std;
 
 int m, q;
 
-map<string, int> map1;
+map<string, int> strToIdx;
+map<int, string> idxToStr;
+
 
 double B[500];
 double T[500][500];
 double M[500][500];
-double cache[500][500];
 
-int choices[500];
-int n;
-string word[500];
-int idx[500];
+string words[100];
+
+double cache[100][500];
+
+int choices[100];
+
+
+
+void solve();
 double maxProb(int target, int before);
 
-string solve();
+
+
 int main()
 {
-     //입력
-     cin>>m>>q;
-     for(int i=0; i<m; i++){
-          string tmp;
-          cin>>tmp;
-          map1.insert(pair<string, int>(tmp, i)); 
-     }
-     for(int i=0; i<m; i++){
-          cin>>B[i];
-     }
-     for(int i=0; i<m; i++){
-          for(int j=0; j<m; j++){
-               cin>>T[i][j];
-          }
-     }
-     for(int i=0; i<m; i++){
-          for(int j=0; j<m; j++){
-               cin>>M[i][j];
-          }
-     }
+    cin>>m>>q;
 
-     //테스트
-     for(int i=0; i<q; i++){
+    for(int i=0; i<m; i++){
+        string tmp;
+        cin>>tmp;
+        strToIdx.insert(pair<string, int>(tmp, i));
+        idxToStr.insert(pair<int, string>(i, tmp));
+    }
+    for(int i=0; i<m; i++){
+        double tmp;
+        cin>>tmp;
+        tmp = log(tmp);
+        B[i] = tmp;
+    }
+    for(int i=0; i<m; i++){
+        for(int j=0; j<m; j++){
+                double tmp;
+                cin>>tmp;
+                tmp = log(tmp);
+                T[i][j] = tmp;
+        }
+    }
+    for(int i=0; i<m; i++){
+        for(int j=0; j<m; j++){
+                double tmp;
+                cin>>tmp;
+                tmp = log(tmp);
+                M[i][j] = tmp;
+        }
+    }
+
+    for(int i=0; i<q; i++){
           cin>>n;
           for(int j=0; j<n; j++){
-               cin>>word[j];
-               idx = map1[word[j]];
+               cin>>words[j];
           }
+          solve();
+    }
 
-          cout<<solve();
-     }
-
-     return 0;
+    return 0;
 }
 
 double maxProb(int target, int before)
 {
-     if(target == n) return 1;
-     
+     if(target == n) return 0;
      double& ret = cache[target][before];
      if(ret > -0.5) return ret;
 
-     ret = 0;
-     int best =-1;
-
-     for(int i=0; i<m; i++){
+     ret = numeric_limits<double>::min();
+     
+     //int& choose = choice[target][before];
+     int bestNext = -1;
+     for(int i=0; i<m ; i++){
           double cand;
           if(target ==0){
-               cand = maxProb(target+1, i) * M[i][idx[target]] * B[i];
+               double cand = B[i] + M[i][strToIdx[words[target]]] + maxProb(target+1, i);
           }
           else{
-               cand = maxProb(target+1, i) * M[i][idx[target]] * T[before][i];
+               double cand = T[before][i] + M[i][strToIdx[words[target]]] + maxProb(target+1, i);
           }
-
-          if(cand>ret){
+          if(cand > ret){
                ret = cand;
-               best = i;    
+               bestNext = i;
           }
      }
-     choices[target] = best;
+
+     choices[target] = bestNext;
      return ret;
 }
 
-string solve()
+void solve()
 {
-     fill(&cache[0][0], &cache[499][500], -1);
-     double tmp = maxProb(0,0);
-
-     string ret = "";
-     for(int i=0; i<n; i++){
-          cout<<choices[i];
-     }
-     
-     return ret = ret.substr(0, ret.size()-1);
+     fill(&)
 }
