@@ -106,6 +106,9 @@ double maxProb(int target, int before)
 void solve()
 {
      fill(&cache[0][0], & cache[99][500], -1);
+     double tmp = maxProb(a);
+
      
 }
+
 
