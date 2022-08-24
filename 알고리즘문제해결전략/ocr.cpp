@@ -17,6 +17,9 @@ double B[500];
 double T[500][500];
 double M[500][500];
 
+
+int n;
+
 string words[100];
 
 double cache[100][500];
@@ -71,6 +74,11 @@ int main()
           solve();
     }
 
+
+
+
+
+
     return 0;
 }
 
@@ -80,17 +88,16 @@ double maxProb(int target, int before)
      double& ret = cache[target][before];
      if(ret > -0.5) return ret;
 
-     ret = numeric_limits<double>::min();
+     ret = numeric_limits<double>::lowest();
      
-     //int& choose = choice[target][before];
      int bestNext = -1;
      for(int i=0; i<m ; i++){
           double cand;
           if(target ==0){
-               double cand = B[i] + M[i][strToIdx[words[target]]] + maxProb(target+1, i);
+               cand = B[i] + M[i][strToIdx[words[target]]] + maxProb(target+1, i);
           }
           else{
-               double cand = T[before][i] + M[i][strToIdx[words[target]]] + maxProb(target+1, i);
+               cand = T[before][i] + M[i][strToIdx[words[target]]] + maxProb(target+1, i);
           }
           if(cand > ret){
                ret = cand;
@@ -104,5 +111,11 @@ double maxProb(int target, int before)
 
 void solve()
 {
-     fill(&)
+     fill(&cache[0][0], &cache[99][100], -1);
+     double a = maxProb(0,0);
+
+     for(int i=0; i<n; i++){
+          cout<<choices[i]<<endl;
+     }
 }
+
