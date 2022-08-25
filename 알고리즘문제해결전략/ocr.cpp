@@ -30,7 +30,7 @@ int choice[100][500];
 
 void solve();
 double maxProb(int target, int before);
-
+string getString(int target, int before);
 
 
 int main()
@@ -106,9 +106,19 @@ double maxProb(int target, int before)
 void solve()
 {
      fill(&cache[0][0], & cache[99][500], -1);
-     double tmp = maxProb(a);
+     double tmp = maxProb(0,0);
 
+     string ret = getString(0,0);
+     cout<<ret<<endl;
      
 }
-
+string getString(int target, int before)
+{
+     int choose = choice[target][before];
+     string ret = idxToStr[choose];
+     if(target<n-1){
+          ret  += " " + getString(target+1, choose);
+     }
+     return ret;
+}
 
