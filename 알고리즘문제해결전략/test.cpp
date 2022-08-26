@@ -22,6 +22,7 @@ double maxProb(int target, int before);
 string getString(int target, int before);
 void solve();
 
+
 double cache[100][501];
 int choice[100][501];
 
@@ -78,7 +79,7 @@ double maxProb(int target, int before)
     ret = -1e200;
 
     for(int i=0; i<m; i++){
-        double cand = T[before][i] + M[i][words[i]] + maxProb(target+1, before);
+        double cand = T[before+1][i] + M[i][words[target]] + maxProb(target+1, i);
         if(cand>ret){
             ret = cand;
             choice[target][before+1] = i;
@@ -93,14 +94,13 @@ void solve()
     double res = maxProb(0, -1);
     string ret = getString(0,-1);
     cout<<ret<<endl;
-
 }
 string getString(int target, int before)
 {
     int choose = choice[target][before+1];
     string ret = corpus[choose];
     if(target < n-1)
-        ret =+ " " + getString(target+1, choose);
+        ret += " " + getString(target+1, choose);
     
     return ret;
 }
