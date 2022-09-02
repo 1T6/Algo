@@ -15,6 +15,7 @@ int cache[501], cntCache[501];
 
 
 int lis(int x);
+void skipFind(int start, int skip, int lis, vector<int>& klis);
 
 
 int main()
@@ -30,15 +31,17 @@ int main()
         memset(cache, -1, sizeof(cache));
         int res = lis(-1);
         
-        solve();
+        vector<int> answer;
+        skipFind(0, k, res, answer);
+        
+        for(auto x: answer){
+            cout<<x<<" ";
+        }
+        cout<<endl;
+
     }
     return 0;
 }
-
-
-
-
-
 
 
 int lis(int x)
@@ -46,18 +49,18 @@ int lis(int x)
     int& ret = cache[x+1];
     if(ret != -1) return ret;
 
-    int& ret1 = cntCache[x+1];
-
+    int& cnt = cntCache[x+1];
+    cnt = 1;
     ret = 0;
 
     for(int i=x+1; i<n; i++){
         if(x==-1||seq[x]<seq[i]){
             if(ret<lis(i)+1){
                 ret = lis(i)+1;
-                ret1 = 0;
+                cnt = 1;
             }
             else if(ret == lis(i)+1)
-                ret1++;
+                cnt++;
 
         }
     }
@@ -68,19 +71,33 @@ int lis(int x)
 
 void skipFind(int start, int skip, int lis, vector<int>& klis)
 {
-    
-    
-    //cache의 lis값 기준으로 오름차순 정렬이 되어있다. 
+    //cntCache의 lis값 기준으로 오름차순 정렬이 되어있다. 
     map<int, int> targets;
     for(int i=start; i<n; i++){
         if(cache[i+1] == lis)
             
-            targets.insert(cache[i+1], i);
+            targets.insert(cntCache[i+1], i);
     }
     
+    if(targets.empty())
+        return;
+    
     map<int, int>::iterator iter = targets.begin();
+    int idx=0;
     while(lis>0){
         lis-= iter->first;
+        idx++;
     }
+    iter--;
+    lis += iter->first;
+    idx -=1;
 
+    klis.push_back(seq[idx]);
+    skipFind(idx, lis, cache[idx+1], klis);
+
+}
+
+void solve()
+{
+    
 }
