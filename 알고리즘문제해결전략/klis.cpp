@@ -75,8 +75,8 @@ void skipFind(int start, int skip, int lis, vector<int>& klis)
     map<int, int> targets;
     for(int i=start; i<n; i++){
         if(cache[i+1] == lis)
-            
-            targets.insert(cntCache[i+1], i);
+
+            targets.insert(make_pair(cntCache[i+1], i));
     }
     
     if(targets.empty())
