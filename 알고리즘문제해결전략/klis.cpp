@@ -29,20 +29,24 @@ int main()
         }
 
         memset(cache, -1, sizeof(cache));
+        memset(cntCache, 0, sizeof(cntCache));
         int res = lis(-1);
         
         vector<int> answer;
-        skipFind(0, k, res, answer);
+        //skipFind(0, k, res, answer);
         
-        for(auto x: answer){
-            cout<<x<<" ";
+        cout<<res<<endl;
+        for(int i=1; i<=n; i++){
+            cout<<cntCache[i]<<" ";
         }
         cout<<endl;
-
+        for(int i=1; i<=n; i++){
+            cout<<cache[i]<<" ";
+        }
+        cout<<endl;
     }
     return 0;
 }
-
 
 int lis(int x)
 {
@@ -51,7 +55,7 @@ int lis(int x)
 
     int& cnt = cntCache[x+1];
     cnt = 1;
-    ret = 0;
+    ret = 1;
 
     for(int i=x+1; i<n; i++){
         if(x==-1||seq[x]<seq[i]){
@@ -69,7 +73,7 @@ int lis(int x)
 }
 
 
-void skipFind(int start, int skip, int lis, vector<int>& klis)
+/*void skipFind(int start, int skip, int lis, vector<int>& klis)
 {
     //cntCache의 lis값 기준으로 오름차순 정렬이 되어있다. 
     map<int, int> targets;
@@ -97,7 +101,4 @@ void skipFind(int start, int skip, int lis, vector<int>& klis)
 
 }
 
-void solve()
-{
-    
-}
+*/
