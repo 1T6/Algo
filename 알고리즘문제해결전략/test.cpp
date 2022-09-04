@@ -33,13 +33,13 @@ int main()
     cout<<endl;
     return 0;
 }
-
+/*
 int lis(int x)
 {
     int& ret = cache[x+1];
     if(ret != -1) return ret;
-    
-    
+
+    int& cnt = cntCache[x+1];
     
 
     ret = 1;
@@ -48,6 +48,30 @@ int lis(int x)
         if(x==-1 || seq[x]<seq[i]){
             ret = max(ret, lis(i)+1);
 
+        }
+    }
+    return ret;
+}
+*/
+int lis(int x)
+{
+    int& ret = cache[x+1];
+    if(ret != -1) return ret;
+    
+    int& cnt = cntCache[x+1];
+    ret =1;
+    cnt =1;
+    
+    for(int i=x+1; i<n; i++){
+        if(x==-1 || seq[x]<seq[i]){
+            int next = lis(i) + 1;
+            if(ret < next){
+                ret = next;
+                cnt = 1;
+            }
+            else if( ret == next){
+                cnt++;
+            }
         }
     }
     return ret;
