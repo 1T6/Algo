@@ -76,4 +76,3 @@ int lis(int x)
     }
     return ret;
 }
-s
