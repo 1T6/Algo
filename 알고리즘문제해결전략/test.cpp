@@ -58,7 +58,7 @@ int count(int x)
 {   
     int& ret = cntCache[x+1];
     if(ret != -1) return ret;
-
+    
 
     for(int i= x+1; i<n; i++){
         if(x==-1 || (seq[x]<seq[i] && cache[x+1]-1 == cache[i+1])){
