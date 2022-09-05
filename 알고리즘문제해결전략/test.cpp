@@ -56,9 +56,12 @@ int lis(int x)
 
 int count(int x)
 {   
+    if(cache[x+1] ==1) return 1;
+
     int& ret = cntCache[x+1];
     if(ret != -1) return ret;
     
+    ret =0;
 
     for(int i= x+1; i<n; i++){
         if(x==-1 || (seq[x]<seq[i] && cache[x+1]-1 == cache[i+1])){
