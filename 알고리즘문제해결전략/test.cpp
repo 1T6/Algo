@@ -11,6 +11,7 @@ int seq[500];
 int cache[501], cntCache[501];
 
 int lis(int x);
+int count(int x);
 
 int main()
 {
@@ -20,9 +21,12 @@ int main()
     }
 
     memset(cache, -1, sizeof(cache));
+    memset(cntCache, -1, sizeof(cntCache));
     
     int res = lis(-1);
+    int ret = count(-1);
     cout<<res<<endl;
+    cout<<ret<<endl;
     for(int i=0; i<=n; i++){
         cout<<cache[i]<<" ";
     }
@@ -33,15 +37,12 @@ int main()
     cout<<endl;
     return 0;
 }
-/*
+
 int lis(int x)
 {
     int& ret = cache[x+1];
     if(ret != -1) return ret;
-
-    int& cnt = cntCache[x+1];
     
-
     ret = 1;
     for(int i=x+1; i<n; i++){
         
@@ -52,27 +53,18 @@ int lis(int x)
     }
     return ret;
 }
-*/
-int lis(int x)
-{
-    int& ret = cache[x+1];
+
+int count(int x)
+{   
+    int& ret = cntCache[x+1];
     if(ret != -1) return ret;
-    
-    int& cnt = cntCache[x+1];
-    ret =1;
-    cnt =1;
-    
-    for(int i=x+1; i<n; i++){
-        if(x==-1 || seq[x]<seq[i]){
-            int next = lis(i) + 1;
-            if(ret < next){
-                ret = next;
-                cnt = 1;
-            }
-            else if( ret == next){
-                cnt++;
-            }
+
+
+    for(int i= x+1; i<n; i++){
+        if(x==-1 || (seq[x]<seq[i] && cache[x+1]-1 == cache[i+1])){
+            ret += count(i);
         }
     }
+
     return ret;
 }
