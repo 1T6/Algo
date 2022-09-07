@@ -13,39 +13,33 @@ int cache[501], cntCache[501];
 
 int lis(int x);
 int count(int x);
-void skipFind(int start, int skip, int lis, vector<int>& klis);
+void skipFind(int start, int rest, int lis, int current, vector<int>& klis);
 
 int main()
 {
+    int c;
+    cin>>c;
+    for(int i=0; i<c; i++){
+        cin>>n>>k;
+        for(int j=0; j<n; j++){
+            cin>>seq[j];
+        }
+        memset(cache, -1, sizeof(cache));
+        memset(cntCache, -1, sizeof(cntCache));
+
+        int res1 = lis(-1)-1;
+        int res2 = count(-1);
+
+        vector<int> answer;
+        skipFind(0, k, res1, -1, answer);
+        
+        cout<<res1<<endl;
+        for(auto x: answer){
+            cout<<x<<" ";
+        }
+        cout<<endl;
+    }
     
-    cin>>n>>k;
-    for(int j=0; j<n; j++){
-        cin>>seq[j];
-    }
-    memset(cache, -1, sizeof(cache));
-    memset(cntCache, -1, sizeof(cntCache));
-
-    int res1 = lis(-1)-1;
-    int res2 = count(-1);
-
-    for(int i=0; i<=n; i++){
-        cout<<cache[i]<<" ";
-    }
-    cout<<endl;
-    for(int i=0; i<=n; i++){
-        cout<<cntCache[i]<<" ";
-    }
-    cout<<endl;
-
-
-
-    vector<int> answer;
-    skipFind(0, k, res1, answer);
-    
-    for(auto x: answer){
-        cout<<x<<" ";
-    }
-    cout<<endl;
 
     return 0;
 }
@@ -80,31 +74,30 @@ int count(int x)
     return ret;
 }
 
-void skipFind(int start, int rest, int lis, vector<int>& klis)
+void skipFind(int start, int rest, int lis, int current, vector<int>& klis)
 {
-    if(start == n) return;
+    if(lis==0) return;
     // key : seq, value : idx
     map<int, int> m;
     for(int i=start; i<n; i++){
-        if(cache[i+1] == rest){
+        if(cache[i+1] == lis){
             m.insert(make_pair(seq[i], i));
         }   
     }
-
     for(auto i = m.begin(); i!= m.end(); i++){
         int idx = i->second;
         
         //범위 내에 없을때
-        if(cntCache[idx+1] < rest){
+        if(cntCache[idx+1] < rest && current < seq[idx]){
             rest -= cntCache[idx+1];
         }
         //범위내에 있을때
-        else{
+        else if(cntCache[idx+1] >= rest && current < seq[idx]){
             klis.push_back(seq[idx]);
-            skipFind(idx, rest, lis-1, klis);
+            skipFind(idx+1, rest, lis-1, seq[idx], klis);
+            break;
         }
     }
-
 }
 
 
