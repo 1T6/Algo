@@ -71,16 +71,9 @@ int count(int x)
     return ret;
 }
 
-/*
-void skipFind(int start, int skip, int lis, vector<int>& kils)
-{
-    map<int, int> targets;
-}
-*/
-
 void skipFind(int start, int rest, int lis, vector<int>& klis)
 {
-    if(start == n) return ;
+    if(start == n) return;
     //key : cnt, value : idx
     //오름차순 정렬을 위해 targets 사용.
     map<int, int> targets;
