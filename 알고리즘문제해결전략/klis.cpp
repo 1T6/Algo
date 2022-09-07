@@ -84,14 +84,26 @@ void skipFind(int start, int rest, int lis, vector<int>& klis)
 {
     if(start == n) return;
     // key : seq, value : idx
-    map<int, int> map;
+    map<int, int> m;
     for(int i=start; i<n; i++){
         if(cache[i+1] == rest){
-            map.insert(make_pair(seq[i], i));
+            m.insert(make_pair(seq[i], i));
         }   
     }
 
-    for(auto)
+    for(auto i = m.begin(); i!= m.end(); i++){
+        int idx = i->second;
+        
+        //범위 내에 없을때
+        if(cntCache[idx+1] < rest){
+            rest -= cntCache[idx+1];
+        }
+        //범위내에 있을때
+        else{
+            klis.push_back(seq[idx]);
+            skipFind(idx, rest, lis-1, klis);
+        }
+    }
 
 }
 
