@@ -27,7 +27,7 @@ int main()
         memset(cache, -1, sizeof(cache));
         memset(cntCache, -1, sizeof(cntCache));
 
-        int res1 = lis(-1);
+        int res1 = lis(-1)-1;
         int res2 = count(-1);
 
         vector<int> answer;
@@ -71,35 +71,33 @@ int count(int x)
     return ret;
 }
 
+/*
 void skipFind(int start, int skip, int lis, vector<int>& kils)
 {
     map<int, int> targets;
-    
 }
+*/
 
-
-
-
-
-void skipFind(int start, int skip, int lis, vector<int>& klis)
+void skipFind(int start, int rest, int lis, vector<int>& klis)
 {
-    //cntCache의 lis값 기준으로 오름차순 정렬이 되어있다. 
+    if(start == n) return ;
+    //key : cnt, value : idx
+    //오름차순 정렬을 위해 targets 사용.
     map<int, int> targets;
     for(int i=start; i<n; i++){
-        if(cache[i+1] == lis)
-            targets.insert(make_pair(cntCache[i+1], i));
+        if(cache[i+1] == lis){
+            targets.insert(make_pair(cntCache[i+1],i));
+        }
     }
-    if(targets.empty())
-        return;
-    map<int, int>::iterator iter = targets.begin();
-    int idx=0;
-    while(lis>0){
-        lis-= iter->first;
-        idx++;
+
+    for(auto i = targets.begin(); i!= targets.end(); i++){
+        
+        //이 인덱스에서 시작을 한다.
+        if(i->first >= rest){
+            klis.push_back(seq[i->second]);
+            skipFind(i->second+1, rest, lis-1, klis);
+        }
     }
-    iter--;
-    lis += iter->first;
-    idx -=1;
-    klis.push_back(seq[idx]);
-    skipFind(idx, lis, cache[idx+1], klis);
 }
+
+
