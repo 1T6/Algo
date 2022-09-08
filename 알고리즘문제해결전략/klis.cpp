@@ -11,6 +11,9 @@ int n, k;
 int seq[500];
 int cache[501], cntCache[501];
 
+
+int MAX = 2000000000+1;
+
 int lis(int x);
 int count(int x);
 void skipFind(int start, int rest, int lis, int current, vector<int>& klis);
@@ -68,7 +71,8 @@ int count(int x)
     ret =0;
     for(int i = x+1; i<n; i++){
         if(x==-1 || (seq[x]<seq[i] && cache[x+1]==cache[i+1]+1)){
-            ret +=count(i);
+            ret = min<long long>(MAX, (long long) ret + count(i));
+        
         }
     }
     return ret;
